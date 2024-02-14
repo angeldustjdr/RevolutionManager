@@ -7,37 +7,131 @@ extends Node
 #INSEE : https://www.insee.fr/fr/statistiques/5371231?sommaire=5371304#tableau-figure2_radio2
 #World Values Survey : https://www.worldvaluessurvey.org/WVSOnline.jsp
 
-var first_names : Array = [
-	"Achille", "Adèle", "Adrien", "Agnès", "Alain", "Alexandre", "Alice", "Aline", "Alphonse", "Amélie",
-	"Anatole", "André", "Angèle", "Antoine", "Ariane", "Armand", "Aurélie", "Baptiste", "Béatrice", "Benoît",
-	"Bernard", "Bertrand", "Blanche", "Brigitte", "Camille", "Caroline", "Catherine", "Cécile", "Céleste", "Céline",
-	"Charles", "Charlotte", "Christelle", "Christiane", "Christophe", "Clara", "Claude", "Claudine", "Clément", "Colette",
-	"Colin", "Corinne", "Cyrille", "Daniel", "Danielle", "David", "Delphine", "Denis", "Diane", "Didier",
-	"Dominique", "Edgar", "Édith", "Éléonore", "Éliane", "Élisabeth", "Élodie", "Émilie", "Emmanuel", "Étienne",
-	"Fabien", "Fabienne", "Félix", "Fernand", "Florence", "Florian", "Françoise", "Frédéric", "Gabriel", "Geneviève",
-	"Georges", "Gérard", "Gilbert", "Grégoire", "Guillaume", "Hélène", "Henri", "Hervé", "Hugo", "Inès",
-	"Isabelle", "Jacqueline", "Jean", "Jeanne", "Jérôme", "Jessica", "Joachim", "Joséphine", "Julie", "Julien",
-	"Justine", "Laurent", "Léa", "Léon", "Léonie", "Louis", "Luc", "Lucas", "Lucie", "Madeleine",
-	"Magali", "Manon", "Marcel", "Margaux", "Marguerite", "Marie", "Marion", "Marcelle", "Martine", "Mathieu",
-	"Mathilde", "Matthieu", "Maurice", "Maxime", "Mélanie", "Michel", "Michelle", "Monique", "Nathalie", "Nicolas",
-	"Nicolette", "Olivier", "Pascal", "Pascale", "Patrice", "Patricia", "Patrick", "Paul", "Pauline", "Philippe",
-	"Pierre", "Rémi", "René", "Renée", "Richard", "Robert", "Roland", "Romain", "Sabine", "Samuel",
-	"Sébastien", "Serge", "Simone", "Sylvain", "Sylvie", "Thérèse", "Thomas", "Valérie", "Véronique", "Victor",
-	"Vincent", "Virginie", "Xavier", "Yann", "Yves", "Zoé"
+var first_names_female : Array = [
+	"Emma","Louise","Jade","Alice","Chloé","Lina","Mila","Léa","Manon","Rose","Anna","Inès","Camille","Lola","Ambre",
+	"Léna","Zoé","Juliette","Julia","Lou","Sarah","Lucie","Mia","Jeanne","Romane","Agathe","Eva","Nina","Charlotte",
+	"Inaya","Léonie","Sofia","Margaux","Louna","Clara","Luna","Maëlys","Olivia","Adèle","Lilou","Clémence","Lana",
+	"Léana","Capucine","Elena","Victoria","Aya","Mathilde","Margot","Iris","Anaïs","Giulia","Alicia","Romy","Nour",
+	"Elise","Théa","Victoire","Yasmine","Lya","Mya","Elsa","Charlie","Assia","Lise","Lily","Noémie","Emy","Lisa","Lyna",
+	"Marie","Soline","Apolline","Alix","Gabrielle","Valentine","Louane","Candice","Pauline","Faustine","Héloïse",
+	"Océane","Ines","Mélina","Maya","Thaïs","Roxane","Salomé","Lila","Maria","Constance","Célia","Sara","Livia","Zélie",
+	"Lyana","Emmy","Alya","Elisa","Maryam","Eloïse","Myla","Manel","Laura","Amélia","Maëlle","Justine","Louisa","Elina",
+	"Maïssa","Eléna","Selma","Kenza","Lison","Léane","Nora","Lena","Eden","Charline","Joséphine","Aliya","Hanna","Anaé",
+	"Amina","Méline","Suzanne","Anaëlle","Garance","Ninon","Julie","Sophia","Ava","Andréa","Myriam","Albane","Amira",
+	"Ana","Ilyana","Céleste","Calie","Aliyah","Lilia","Elya","Sirine","Diane","Emilie","Naëlle","Fatima","Jana","Marwa",
+	"Asma","Assya","Jenna","Neyla","Stella","Coline","Eléonore","Cassandre","Aïcha","Sasha","Lylou","Tessa","Leïla",
+	"Naïla","Lucy","Mélissa","Eline","Naomi","Emna","Élise","Layana","Clémentine","Ella","Khadija","Ellie","Lilya",
+	"Milla","Leyna","Célestine","Salma","Sophie","Anouk","Maëva","Cléa","Aria","Lia","Jasmine","Naomie","Norah","Mayssa",
+	"Lara","Lily-Rose","Eléa","Louison","Alyssa","Camélia","Augustine","Mariam","Soumaya","Dina","Tess","Alia","Alma",
+	"Joy","Jennah","Elyne","Hanaé","Elia","Safiya","Elyna","Malak","Axelle","Hafsa","Arya","Cloé","Madeleine","Marion",
+	"Fatoumata","Shanna","Lucile","Elif","Imane","Liya","Clarisse","Valentina","Morgane","Éléonore","Enora","Maïwenn",
+	"Tasnim","Aminata","Judith","Nelya","Raphaëlle","Sana","Line","Aurore","Melina","Carla","Mélia","Éléna","Chiara",
+	"Bérénice","Hana","Izia","Maëlya","Nayla","Anastasia","Rachel","Nélia","Liana","Alexia","Daphné","Maïa","Cassie",
+	"Janna","Neïla","Anissa","Maxine","Hortense","Amélie","Talia","Miya","Farah","Lea","Amel","Naïa","Ayline","Eliana",
+	"Safa","Assiya","Cassandra","Esther","Mina","Thalia","Yuna","Alessia","Malia","Noélie","Hawa","Shana","Maëly",
+	"Selena","Lili","Maïna","Cataleya","Estelle","Maëline","Athénaïs","Flora","Olympe","Hannah","Ashley","Kiara",
+	"Maëlyne","Paloma","Amandine","Kayla","Lexie","Melissa","Meryem","Naya","Cléo","Violette","Esma","Aaliyah","Amalia",
+	"Chloe","Hajar","Maëlie","Yousra","Liv","Amy","Rania","Talya","Fanny","Marilou","Evy","Hind","Lylia","Rosalie",
+	"Mellina","Serena","Jannah","Lyanna","Séléna","Éloïse","Éva","Aliénor","Ema","Solène","Wendy","Éléa","Alizée",
+	"Maelys","Sixtine","Lilas","Syrine","Alexandra","Claire","Isra","June","Blanche","Angèle","Enola","Lucia",
+	"Héléna","Kélya","Gabriella","Maëlia","Paola","Aline","Lyne","Maeva","Meriem","Zoe","Thelma","Laly","Safia",
+	"Hidaya","Mona","Kelly","Leana","Johanna","Lyah","Mïa","Emilia","Leïa","Awa","Pia","Elyana","Mélyna","Alycia",
+	"Diana","Juliana","Abby","Amelia","Tiana","Angelina","Shayna","Alba","Nawel","Léonore","Sélène","Flavie","Syana",
+	"Alyah","Isaure","Chaïma","Ela","Joyce","Tasnime","Émilie","Carmen","Israa","Luce","Nélya","Eve","Mélodie","Noor",
+	"Andrea","Elisabeth","Leila","Marylou","Maïssane","Noa","Kelya","Layna","Leïna","Maé","Dounia","Élina",
+	"Philippine","Zahra","Anya","Lyla","Mayline","Séréna","Assil","Loane","Malya","Éline","Anaya","Kyara","Laurine",
+	"Laïna","Maïlys","Soraya","Astrid","Eugénie","Halima","Iliana","Rita","Aylin","Lalie","Lindsay","Céline","Nada",
+	"Ariane","Lahna","Lilly","Shaïna","Tina","Mélya","Loïs","Téa","Zaynab","Alana","Castille","Emmie","Noéline",
+	"Abigaëlle","Annabelle","Ilona","Aicha","Irina","Ayana","Callie","Leyla","Fleur","Nelia","Sanaa","Zeynep","Brune",
+	"Charlize","Helena","Tara","Tia","Amaya","Anais","Maddy","Lydia","Suzie","Élisa","Angela","Bertille","Hiba","Sakina",
+	"Yaëlle","Camila","Maylis","Mélyne","Oriane","Azra","Bianca","Maud","Sibylle","Anaë","Gabriela","Milana","Sabrina",
+	"April","Fanta","Mathilda","Sienna","Firdaws","Lyse","Rebecca","Annaëlle","Emie"
+]
+var first_names_male : Array = [
+	"Gabriel","Louis","Raphaël","Jules","Adam","Lucas","Léo","Hugo","Arthur","Nathan","Liam","Ethan","Maël","Paul",
+	"Tom","Sacha","Noah","Gabin","Nolan","Enzo","Mohamed","Aaron","Timéo","Théo","Mathis","Axel","Victor","Antoine",
+	"Valentin","Martin","Noé","Eden","Robin","Marius","Rayan","Clément","Baptiste","Maxime","Samuel","Léon","Yanis",
+	"Augustin","Eliott","Maxence","Evan","Mathéo","Alexandre","Thomas","Simon","Gaspard","Naël","Tiago","Amir",
+	"Isaac","Nino","Ibrahim","Lyam","Lenny","Malo","Imran","Marceau","Alexis","Kaïs","Camille","Noa","Oscar","Noam",
+	"Mathys","Esteban","Ayden","Ilyes","Lorenzo","Kylian","Adrien","Côme","Wassim","Ismaël","Soan","Amine","Youssef",
+	"Milo","Naïm","Benjamin","Ayoub","Joseph","Owen","Ali","William","Jean","Louka","Adem","Bastien","Léandre",
+	"Antonin","Logan","Noham","Kenzo","Younes","Sandro","David","Charles","Diego","Sohan","Rafael","Milan","Nahil",
+	"Ruben","Charly","Julian","Pierre","Basile","Pablo","Issa","Elias","Timothée","Sasha","Rafaël","Thibault","Elio",
+	"Malone","Hamza","Nassim","Anas","Mahé","Timothé","Lucien","Auguste","Thiago","Ewen","Abel","Mattéo","Yassine",
+	"Loan","Zakaria","Alban","Aymen","Marcel","Quentin","Mehdi","Nathanaël","Ahmed","Mathias","Corentin","Nael",
+	"Charlie","Alessio","Dylan","Marin","Achille","Luka","Raphael","Leo","Loris","Joshua","Tristan","Romain",
+	"Léonard","Luca","Ryan","Nicolas","Ezio","Erwan","Ilan","Titouan","Andrea","Eliot","Daniel","Armand","Amaury",
+	"Ilyas","Samy","Idriss","Hayden","Mael","Haroun","Lilian","Mohammed","Moussa","Roméo","Aylan","Ulysse","Mathieu",
+	"Matéo","Imrane","Jonas","Lino","Mayron","Bilal","Livio","Iyad","Elliot","Johan","Alex","Gustave","Matteo",
+	"Léandro","Emmanuel","Jayden","Mylan","Julien","Ilyan","Arsène","Maé","Anis","Emile","Ismaïl","Nolhan","Sofiane",
+	"Omar","Leandro","Jordan","Tim","Gaël","Gauthier","Loïs","Rayane","Morgan","Léopold","Marley","Anatole","James",
+	"Djibril","Tyméo","Sami","Lisandro","Yann","Félix","Marcus","Henri","Elie","Hector","Ismael","Yacine","Octave",
+	"Souleymane","Edouard","Kamil","Warren","Tao","Lenzo","Luis","Issam","Kassim","César","Solal","Bryan","Naïl","Tony",
+	"Emir","Anthony","Souleyman","Nahel","Iyed","Malik","Dorian","Marwan","Swann","Abdallah","Elyas","Téo","Gianni",
+	"Matthieu","Ange","Lukas","Wyatt","Anton","Giulian","Edgar","Elijah","Leny","Ylan","Lohan","Gaston","Swan","Joachim",
+	"Paolo","Salim","Jassim","Ernest","Roman","Angelo","Aubin","Fares","Justin","Nolann","Walid","Célestin","Ilhan",
+	"Max","Timeo","Adel","Marc","Aloïs","Sam","Jad","Célian","Nils","Alix","Georges","Jason","Tino","Youcef","Tyler",
+	"Wael","Louison","Jessim","Elouan","Loïc","Théodore","Tilio","Ismail","Mamadou","Bilel","Qassim","Zayd","Emilio",
+	"Yusuf","Aurélien","Khalil","Matthew","Soren","Chahine","Alan","Elyo","Aksel","Marvin","Émile","Éthan","Aïden",
+	"Eyden","Nelson","Andy","Aymeric","Cameron","Dimitri","Florian","Marlon","Theo","Clovis","Youssouf","Eymen","Lewis",
+	"Ilyès","Kevin","Melvin","Zayn","Adrian","Camil","Fabio","Joris","Louca","Gaëtan","Manoé","Lény","Néo","Kyllian",
+	"Mateo","Thibaut","Vadim","Thiméo","Vincent","Ziyad","Evann","Hippolyte","Zack","Aron","Etienne","Hadrien","Enes",
+	"Matthias","Ishaq","Soulayman","Aydan","Loup","Lubin","Zakariya","Nathaël","Stan","Guillaume","Jonathan","Tylio",
+	"Zacharie","Éden","Abdoulaye","Ilian","Pharell","Rémi","Ugo","Waël","Yasser","Adil","Damien","Milhan","Angel",
+	"Estéban","Grégoire","Wesley","Stanislas","Ezra","Mohamed-Amine","Riyad","Lou","Élie","Ousmane","Miguel","Jacques",
+	"Calvin","Marco","Giovanni","Leon","Loucas","Lyham","Nohan","Yassin","Kais","Milàn","Aiden","Joan","Luc","Andréa",
+	"Armel","Idris","Karim","Karl","Matis","Maximilien","Siméon","Yaël","Kelyan","Tobias","Haron","Soën","Yahya","Elyes",
+	"Mylann","Jaden","Younès","Mouhamed","Muhammed","Manoa","Aedan","Ambroise","Ayman","Loukas","Thyméo","Ylann","Ishak",
+	"Albin","Ewenn","Clement","Ibrahima","Liham","Matys","Théophile","Noe","Olivier","Colin","Yohan","Mickaël","Muhammad",
+	"Ryad","Selim","Alessandro","Flavio","Mahdi","Kévin","Ivan","Joud","Jérémy","Zakarya","Aurèle","Farès","Islem",
+	"Yannis","Élio","Andrew","Chris","Ewan","Jibril","Maëlan","Melvyn","Antonio","Elliott","Oumar","Allan","Amjad",
+	"Matheo","Ziad","Harry","Paulin","Kyle","Carl","Lissandro","Paco","Tayron","Jimmy","Aboubacar","Akram","Anes","Hassan"
 ]
 
 var last_names : Array = [
-	"Adam", "Allard", "Arnaud", "Aubert", "Barbier", "Baron", "Benoît", "Berger", "Bernard", "Bertrand",
-	"Blanc", "Blanchard", "Boyer", "Brun", "Caron", "Carpentier", "Carré", "Clement", "Colin", "Collet",
-	"David", "Debray", "Delacroix", "Delannoy", "Delattre", "Denis", "Descamps", "Deschamps", "Deschênes", "Desjardins",
-	"Dubois", "Dufour", "Dupont", "Durand", "Fabre", "Faure", "Fernandez", "Ferrand", "Fischer", "Fontaine",
-	"Fournier", "Garcia", "Garnier", "Gauthier", "Gérard", "Girard", "Giraud", "Gomez", "Gonzalez", "Guérin",
-	"Guillaume", "Hamon", "Henry", "Hubert", "Huet", "Jacquet", "Joly", "Lacroix", "Lambert", "Laroche",
-	"Lefebvre", "Lefevre", "Lefort", "Legrand", "Lemoine", "Leroy", "Lopez", "Lucas", "Martin", "Martinez",
-	"Mathieu", "Mercier", "Meunier", "Michel", "Millot", "Monnier", "Morel", "Morin", "Muller", "Naudin",
-	"Nicolas", "Noël", "Olivier", "Perez", "Perrin", "Petit", "Philippe", "Pierre", "Poirier", "Renaud",
-	"Rey", "Reynaud", "Rivière", "Roch", "Roger", "Rousseau", "Roy", "Sauvage", "Schmitt", "Simon",
-	"Thomas", "Vidal", "Vincent", "Voirin", "Weber", "Weiss", "Wolf"
+	"Martin","Bernard","Robert","Richard","Durand","Dubois","Moreau","Simon","Laurent","Michel","Garcia","Thomas",
+	"Leroy","David","Morel","Roux","Girard","Fournier","Lambert","Lefebvre","Mercier","Blanc","Dupont","Faure",
+	"Bertrand","Morin","Garnier","Nicolas","Marie","Rousseau","Bonnet","Vincent","Henry","Masson","Robin",
+	"Martinez","Boyer","Muller","Chevalier","Denis","Meyer","Blanchard","Lemaire","Dufour","Gauthier","Vidal",
+	"Perez","Perrin","Fontaine","Joly","Jean","da Silva","Gautier","Roche","Roy","Pereira","Mathieu","Roussel",
+	"Duval","Guerin","Lopez","Rodriguez","Colin","Aubert","Lefevre","Marchand","Schmitt","Picard","Caron","Sanchez",
+	"Meunier","Gaillard","Louis","Nguyen","Lucas","Dumont","dos Santos","Brunet","Clement","Brun","Arnaud","Giraud",
+	"Barbier","Rolland","Charles","Hubert","Fernandes","Fabre","Moulin","Leroux","Dupuis","Guillaume","Roger","Paris",
+	"Guillot","Dupuy","Fernandez","Carpentier","Payet","Ferreira","Olivier","Philippe","Deschamps","Lacroix","Jacquet",
+	"Rey","Klein","Renaud","Baron","Leclerc","Royer","Berger","Bourgeois","Bertin","Petit","Adam","Daniel","Lemoine",
+	"Pierre","Francois","Goncalves","Benoit","Lecomte","Vasseur","Lebrun","Leblanc","Leclercq","Besson","Charpentier",
+	"Etienne","Jacob","Michaud","Maillard","Dumas","Monnier","Fleury","Aubry","Hamon","Renard","Chevallier","Guyot",
+	"Marty","Gomez","Gillet","Andre","Le Roux","Boucher","Bailly","Pons","Renault","Julien","Huet","Riviere","Gonzalez",
+	"Reynaud","Collet","Bouvier","Millet","Rodrigues","Gerard","Bouchet","Schneider","Germain","Marchal","Martins",
+	"Breton","Cousin","Langlois","Perrot","Perrier","Le Gall","Noel","Pelletier","Mallet","Weber","Hoarau","Chauvin",
+	"Le Goff","Grondin","Antoine","Boulanger","Gilbert","Humbert","Guichard","Poulain","Collin","Tessier","Pasquier",
+	"Jacques","Lamy","da Costa","Alexandre","Perret","Poirier","Pascal","Gros","Buisson","Albert","Lopes","Ruiz",
+	"Lejeune","Cordier","Hernandez","Georges","Maillot","Delaunay","Laporte","Pichon","Voisin","Lemaitre","Launay",
+	"Lesage","Carlier","Ollivier","Gomes","Besnard","Camus","Coulon","Cohen","Charrier","Paul","Didier","Guillet",
+	"Guillou","Remy","Joubert","Bousquet","Verdier","Hoareau","Briand","Raynaud","Delmas","Coste","Blanchet","Marin",
+	"Lebreton","Leduc","Sauvage","Martel","Gaudin","Lebon","Rossi","Diallo","Delattre","Maury","Ribeiro","Bigot",
+	"Menard","Guillon","Thibault","Colas","Raymond","Delorme","Pineau","Joseph","Hardy","Berthelot","Allard","Lagarde",
+	"Ferrand","Valentin","Lenoir","Tran","Bonneau","Clerc","Godard","Tanguy","Brunel","Gilles","Imbert","Seguin",
+	"Jourdan","Alves","Bruneau","Bodin","Morvan","Vaillant","Marion","Devaux","Maurice","Courtois","Baudry","Chauvet",
+	"Prevost","Couturier","Turpin","Lefort","Lacombe","Favre","Maire","Barre","Riou","Allain","Lombard","Mary","Lacoste",
+	"Blin","Costa","Evrard","Thierry","Leveque","Loiseau","Navarro","Laroche","Bourdon","Texier","Carre","Levy",
+	"Toussaint","Grenier","Guilbert","Guibert","Chartier","Bonnin","Maillet","Benard","Jacquot","Auger","Vallet",
+	"Leconte","Bazin","Rousset","Fischer","Rocher","Normand","Descamps","Potier","Valette","Peltier","Duhamel",
+	"Wagner","Merle","Faivre","Barbe","Blondel","Pottier","Pinto","Maurin","Guyon","Vial","Martineau","Blot","Gallet",
+	"Foucher","Delage","Guy","Chauveau","Barthelemy","Fouquet","Boutin","Bouvet","Salmon","Rossignol","Neveu",
+	"Lemonnier","Marechal","Herve","Delahaye","Poncet","Bernier","Lafon","Teixeira","Chapuis","Pujol","Lecoq",
+	"Charbonnier","de Sousa","Laborde","Cros","Serre","Andrieu","Girault","Pruvost","Berthier","Grand","Sabatier",
+	"Boulay","Le Roy","Duclos","Martinet","Hebert","Maurel","Gervais","Dias","de Oliveira","Parent","Jourdain","Ali",
+	"Regnier","Marc","Diaz","Billard","Favier","Bellanger","Delannoy","Torres","Dubreuil","Becker","Doucet","Gras",
+	"Prigent","Rigaud","Samson","Masse","Cornu","Chambon","Mas","Fortin","Besse","Castel","Letellier","Ricard",
+	"Benoist","Poisson","Parmentier","Lepage","Boulet","Grandjean","Claude","Mendes","Bonhomme","Roques","Huguet",
+	"Comte","Pommier","Le Corre","Forestier","Drouet","Constant","Leblond","Jolly","Brault","Gosselin","Lacour","Rose",
+	"Prat","Geoffroy","Hamel","Tournier","Rault","Mounier","Ledoux","Marquet","Blondeau","Grange","Morand","Picot",
+	"Millot","Brossard","Laval","Merlin","Bocquet","Granger","Jung","Leleu","Levasseur","Guillemin","Armand","Barret",
+	"Mouton","Champion","Moreno","Bouquet","Keller","Bourdin","Cartier","Gimenez","Jamet","Lavigne","Combes","Said",
+	"Lelievre","Guillard","Berthet","Guillemot","Gibert","Leray","Gicquel","Ferry","Fort","Dumoulin","Provost","Basset",
+	"Papin","Terrier","Walter","Andrieux","Tellier","Jeanne","Bataille","Munoz","Jullien","Ramos","Prieur","Bouchard",
+	"Saunier","Bon","Chatelain","Foulon","Lasserre"
 ]
 
 var agePyramid : Dictionary = {
@@ -94,12 +188,14 @@ var jobList = jobStats.keys()
 #################################################### 
 
 func createCitizen():
-	var _name = pickName()
+	var _gender = pickGender()
+	var _name = pickName(_gender)
 	var _age = pickAge()
 	var _occupation = pickJob(_age)
 	var _revenue = getRevenue(_occupation)
 	
 	var profile : Dictionary = {
+		"Gender" : _gender,
 		"Name" : _name,
 		"Age" : _age,
 		"Occupation" : _occupation,
@@ -121,9 +217,19 @@ func rollDiceCumulProba(cumulProba,beg,end):
 	
 #################################################### 
 
-func pickName():
-	var myFirstName = first_names.pick_random()
-	first_names.erase(myFirstName)
+func pickGender():
+	var dice = randf_range(0.0,100.)
+	if dice<50. : return "Female"
+	else : return "Male"
+	
+func pickName(myGender):
+	var myFirstName
+	if myGender == "Female":
+		myFirstName = first_names_female.pick_random()
+		first_names_female.erase(myFirstName)
+	else :
+		myFirstName = first_names_male.pick_random()
+		first_names_male.erase(myFirstName)
 	var myLastName = last_names.pick_random()
 	last_names.erase(myLastName)
 	return myFirstName+" "+myLastName
