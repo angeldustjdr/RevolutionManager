@@ -171,7 +171,7 @@ var jobStats : Dictionary = {
 		"Part dans la population" : 29.5
 	},
 	"Unemployed - under Unemployment benefit" : {#source : https://www.insee.fr/fr/statistiques/7456885?sommaire=7456956#tableau-figure2
-		"ProbaCumul Niveau de vie" : [20.0,4.9,42,53.7,62.7,69.8,76.2,82,87.5,92.9,100],
+		"ProbaCumul Niveau de vie" : [2.0,4.9,42,53.7,62.7,69.8,76.2,82,87.5,92.9,100],
 		"RevenuParDecile" : [607.75*12,12000,12787,13573,14360,15147,15933,16720,17507,18293,19080],
 		"Part dans la population" : 7.1 #Chiffre du chomage
 	},
@@ -183,7 +183,19 @@ var jobStats : Dictionary = {
 }
 var jobList = jobStats.keys()
 
-var ecartSalarialHommeFemme = 0.24
+var urbainRural : Dictionary = { #source : https://www.insee.fr/fr/statistiques/4806694#graphique-figure2
+	"ProbaCumul Ville" : [0.0,19.5,39.2,57.6,81.2,93.4,100.0],
+	"Type de Ville" : ["Paris","Metropolis","Big town","Small town","Village","Tiny village"]
+}
+
+var structureFamille : Dictionary = { #source https://www.insee.fr/fr/statistiques/4277630?sommaire=4318291
+	"ProbaCumul situation" : [0.0,23.0,57.5,87.3,97.1,100.0],
+	"Situation" : ["No children", "1 child", "2 children","3 children","4 children or more"]
+}
+
+var ecartSalarialHommeFemme = 0.24 #source : https://www.insee.fr/fr/statistiques/:~:text=En%20moyenne,%20le%20volume%20de,%C3%A9l%C3%A8ve%20%C3%A0%2015,5%20%.#tableau-figure1_radio1
+var pourcentageImmigre = 10.3 #source : https://www.insee.fr/fr/statistiques/3633212
+var pourcentageLGBT = 9.0 #source https://www.ipsos.com/sites/default/files/ct/news/documents/2023-06/Ipsos%20Enqu%C3%AAte%20LGBT%2B%20Pride%202023%20Globale.pdf
 #################################################### 
 # FUNCTIONS
 #################################################### 
@@ -194,13 +206,21 @@ func createCitizen():
 	var _age = pickAge()
 	var _occupation = pickJob(_age)
 	var _revenue = getRevenue(_occupation,_gender)
+	var _habitation = getHabitation(_occupation)
+	var _nbChildren = getNbChildren()
+	var _isImmigrant = getImmigration()
+	var _isLGBT = getLGBT()
 	
 	var profile : Dictionary = {
 		"Gender" : _gender,
 		"Name" : _name,
 		"Age" : _age,
 		"Occupation" : _occupation,
-		"Monthly income (€)" : int(_revenue/12)
+		"Monthly income (€)" : int(_revenue/12),
+		"Lives in" : _habitation,
+		"Number of children" : _nbChildren,
+		"Is born in France" : !_isImmigrant,
+		"Is LGBT" : _isLGBT
 	}
 	return profile
 	
@@ -244,14 +264,14 @@ func pickJob(myAge):
 	if myAge > 65 : myJob = "Retired"
 	else : 
 		var p = 0.0
-		var probabilityJob : Array = []
+		var probabilityJob : Array = [0.0]
 		var myJobList = jobList
 		myJobList.erase("Retired")
 		for j in jobList :
 			p += jobStats[j]["Part dans la population"]
 			probabilityJob.append(p)
 		var i = rollDiceCumulProba(probabilityJob,0,-1)
-		myJob = myJobList[i]
+		myJob = myJobList[i-1]
 	return myJob
 
 func getRevenue(myOccupation,myGender):
@@ -260,4 +280,19 @@ func getRevenue(myOccupation,myGender):
 	if myGender == "Female" : return myRevenue*(1-ecartSalarialHommeFemme)
 	else : return myRevenue
 
-	
+func getHabitation(myOccupation):
+	if myOccupation == "Farmer" : return "Tiny village"
+	else  : return urbainRural["Type de Ville"][rollDiceCumulProba(urbainRural["ProbaCumul Ville"],0,-1)-1]
+
+func getNbChildren():
+	return structureFamille["Situation"][rollDiceCumulProba(structureFamille["ProbaCumul situation"],0,-1)-1]
+
+func getImmigration():
+	var dice = randf_range(0.0,100.0)
+	if dice < pourcentageImmigre : return true
+	else : return false
+
+func getLGBT():
+	var dice = randf_range(0.0,100.0)
+	if dice < pourcentageLGBT : return true
+	else : return false
