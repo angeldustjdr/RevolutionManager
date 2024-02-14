@@ -47,42 +47,42 @@ var agePyramid : Dictionary = {
 
 var jobStats : Dictionary = {
 	"Farmer" : {
-		"ProbaCumul Niveau de vie" : [16.7, 27.2, 36.5, 43.7, 50.3, 57.8, 64.3, 72.1, 82.4, 100.0],
+		"ProbaCumul Niveau de vie" : [0.0,16.7, 27.2, 36.5, 43.7, 50.3, 57.8, 64.3, 72.1, 82.4, 100.0],
 		"RevenuParDecile" : [9140,13408,17676,21944,26212,30480,34748,39016,43284,47552,51820],
 		"Part dans la population" : 4.2
 	},
 	"Executive" : {
-		"ProbaCumul Niveau de vie" : [2.8,4.2,6.1,8.8,12.9,18.8,26.1,40.7,62.7,100],
+		"ProbaCumul Niveau de vie" : [0.0,2.8,4.2,6.1,8.8,12.9,18.8,26.1,40.7,62.7,100],
 		"RevenuParDecile" : [19710,24006,28302,32598,36894,41190,45486,49782,54078,58374,62670],
 		"Part dans la population" : 10.4
 	},
 	"Intermediate occupation" : {
-		"ProbaCumul Niveau de vie" : [4.1,7.9,13.6,21.3,31.1,42.9,58,73.9,89.5,100],
+		"ProbaCumul Niveau de vie" : [0.0,4.1,7.9,13.6,21.3,31.1,42.9,58,73.9,89.5,100],
 		"RevenuParDecile" : [15330,17770,20210,22650,25090,27530,29970,32410,34850,37290,39730],
 		"Part dans la population" : 14.6
 	},
 	"Employee" : {
-		"ProbaCumul Niveau de vie" : [8.6,18.7,30.4,43.8,56.9,69.2,79.7,89.1,96,100],
+		"ProbaCumul Niveau de vie" : [0.0,8.6,18.7,30.4,43.8,56.9,69.2,79.7,89.1,96,100],
 		"RevenuParDecile" : [11680,13662,15644,17626,19608,21590,23572,25554,27536,29518,31500],
 		"Part dans la population" : 15.8
 	},
 	"Worker" : {
-		"ProbaCumul Niveau de vie" : [10,21.4,34.1,46.4,59.1,71.8,83.6,92.4,98,100],
+		"ProbaCumul Niveau de vie" : [0.0,10,21.4,34.1,46.4,59.1,71.8,83.6,92.4,98,100],
 		"RevenuParDecile" : [11200,13017,14834,16651,18468,20285,22102,23919,25736,27553,29370],
 		"Part dans la population" : 12.0
 	},
 	"Retired" : { #Source : https://drees.solidarites-sante.gouv.fr/sites/default/files/2021-05/Fiche%2009%20-%20Le%20niveau%20de%20vie%20des%20retrait%C3%A9s.pdf
-		"ProbaCumul Niveau de vie" : [13,35,57,79,100],
+		"ProbaCumul Niveau de vie" : [0.0,13,35,57,79,100],
 		"RevenuParDecile" : [607.75*12,970*12,1390*12,1780*12,2240*12,3860*12],
 		"Part dans la population" : 29.5
 	},
 	"Unemployed - under Unemployment benefit" : {#source : https://www.insee.fr/fr/statistiques/7456885?sommaire=7456956#tableau-figure2
-		"ProbaCumul Niveau de vie" : [24.9,42,53.7,62.7,69.8,76.2,82,87.5,92.9,100],
+		"ProbaCumul Niveau de vie" : [20.0,4.9,42,53.7,62.7,69.8,76.2,82,87.5,92.9,100],
 		"RevenuParDecile" : [607.75*12,12000,12787,13573,14360,15147,15933,16720,17507,18293,19080],
 		"Part dans la population" : 7.1 #Chiffre du chomage
 	},
 	"Unemployed - under Solidarity income benefit" : {#source : https://drees.solidarites-sante.gouv.fr/sites/default/files/2022-12/AAS22-Fiche%2033%20-%20Les%20b%C3%A9n%C3%A9ficiaires%20du%20revenu%20de%20solidarit%C3%A9%20active%20%28RSA%29.pdf
-		"ProbaCumul Niveau de vie" : [100.0],
+		"ProbaCumul Niveau de vie" : [0.0,100.0],
 		"RevenuParDecile" : [607.75*12,607.75*12],
 		"Part dans la population" : 6.0
 	},
@@ -106,6 +106,20 @@ func createCitizen():
 		"Monthly income (€)" : int(_revenue/12)
 	}
 	return profile
+	
+#################################################### 
+
+func rollDiceCumulProba(cumulProba,beg,end):
+	var dice = randf_range(cumulProba[beg],cumulProba[end])
+	var i = 0
+	var cont = true
+	while cont:
+		if dice < cumulProba[i]:
+			cont = false
+		else : i+=1
+	return i
+	
+#################################################### 
 
 func pickName():
 	var myFirstName = first_names.pick_random()
@@ -115,16 +129,8 @@ func pickName():
 	return myFirstName+" "+myLastName
 
 func pickAge():
-	var age = 0
-	var dice = randf_range(agePyramid["ProbaCumul"][1],100.0)
-	var i = 0
-	var cont = true
-	while cont :
-		if dice < agePyramid["ProbaCumul"][i] : 
-			age = randi_range(agePyramid["Age"][i-1],agePyramid["Age"][i])
-			cont = false
-		else : i += 1
-	return age
+	var i = rollDiceCumulProba(agePyramid["ProbaCumul"],1,-1)
+	return int(randf_range(agePyramid["Age"][i-1],agePyramid["Age"][i]))
 
 func pickJob(myAge):
 	var myJob : String
@@ -137,25 +143,11 @@ func pickJob(myAge):
 		for j in jobList :
 			p += jobStats[j]["Part dans la population"]
 			probabilityJob.append(p)
-		var dice = randf_range(0.0,probabilityJob[-1])
-		var i = 0
-		var cont = true
-		while cont:
-			if dice < probabilityJob[i]:
-				myJob = myJobList[i]
-				cont = false
-			else : i+=1
+		var i = rollDiceCumulProba(probabilityJob,0,-1)
+		myJob = myJobList[i]
 	return myJob
 
 func getRevenue(myOccupation):
-	var dice = randf_range(0.0,100.0)
-	var i = 0
-	var cont = true
-	var myRevenue : float
-	while cont:
-		if dice < jobStats[myOccupation]["ProbaCumul Niveau de vie"][i] :
-			myRevenue = randf_range(jobStats[myOccupation]["RevenuParDecile"][i],jobStats[myOccupation]["RevenuParDecile"][i+1])
-			cont = false
-		else : i+=1
-	return myRevenue
+	var i = rollDiceCumulProba(jobStats[myOccupation]["ProbaCumul Niveau de vie"],0,-1)
+	return randf_range(jobStats[myOccupation]["RevenuParDecile"][i-1],jobStats[myOccupation]["RevenuParDecile"][i])
 	
