@@ -1,4 +1,4 @@
-class_name citizen
+extends Node2D
 
 var profile : Dictionary = {}
 var satisfaction : float = 0.0 #Am I satisfied with my current situation (from -100 to 100)
@@ -10,5 +10,4 @@ var moralValues : Array = ["Autonomy","Stimulation","Hedonism","Sucess","Power",
 
 func initialize():
 	profile = INSEE.createCitizen()
-	print(profile)
 
