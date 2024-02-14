@@ -183,6 +183,7 @@ var jobStats : Dictionary = {
 }
 var jobList = jobStats.keys()
 
+var ecartSalarialHommeFemme = 0.24
 #################################################### 
 # FUNCTIONS
 #################################################### 
@@ -192,7 +193,7 @@ func createCitizen():
 	var _name = pickName(_gender)
 	var _age = pickAge()
 	var _occupation = pickJob(_age)
-	var _revenue = getRevenue(_occupation)
+	var _revenue = getRevenue(_occupation,_gender)
 	
 	var profile : Dictionary = {
 		"Gender" : _gender,
@@ -253,7 +254,10 @@ func pickJob(myAge):
 		myJob = myJobList[i]
 	return myJob
 
-func getRevenue(myOccupation):
+func getRevenue(myOccupation,myGender):
 	var i = rollDiceCumulProba(jobStats[myOccupation]["ProbaCumul Niveau de vie"],0,-1)
-	return randf_range(jobStats[myOccupation]["RevenuParDecile"][i-1],jobStats[myOccupation]["RevenuParDecile"][i])
+	var myRevenue = randf_range(jobStats[myOccupation]["RevenuParDecile"][i-1],jobStats[myOccupation]["RevenuParDecile"][i])
+	if myGender == "Female" : return myRevenue*(1-ecartSalarialHommeFemme)
+	else : return myRevenue
+
 	
