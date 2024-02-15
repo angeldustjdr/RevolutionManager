@@ -5,7 +5,8 @@ var zoomMax = Vector2(3.0,3.0)
 var zoomSpeed = Vector2(0.1,0.1)
 
 var drag = false
-var startPosition
+var cameraStartPosition
+var mouseStartPostion
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -15,9 +16,12 @@ func _input(event):
 			if self.zoom < zoomMax : self.zoom += zoomSpeed 
 		
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE :
-			startPosition = get_local_mouse_position()
+			cameraStartPosition = self.position
+			mouseStartPostion = get_local_mouse_position()
 			drag = true
 		if event.is_released() and event.button_index == MOUSE_BUTTON_MIDDLE : 
 			drag = false
 
+func _process(_delta):
+	if drag : self.position = cameraStartPosition - (get_local_mouse_position()-mouseStartPostion)
 

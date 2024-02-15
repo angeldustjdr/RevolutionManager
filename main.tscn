@@ -8,5 +8,11 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_31kx5")
 
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Mouse wheel = zoom in / out
+Mouse button = drag camera"
+
 [node name="CitizenManager" type="Node2D" parent="."]
 script = ExtResource("1_020mp")
