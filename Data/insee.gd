@@ -209,7 +209,9 @@ func createCitizen():
 	var _habitation = getHabitation(_occupation)
 	var _nbChildren = getNbChildren()
 	var _isImmigrant = getImmigration()
+	if _isImmigrant : _revenue * 0.9
 	var _isLGBT = getLGBT()
+	if _isLGBT : _revenue * 0.9
 	
 	var profile : Dictionary = {
 		"Gender" : _gender,

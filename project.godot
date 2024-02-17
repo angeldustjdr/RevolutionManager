@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 INSEE="*res://Data/insee.gd"
+UI="*res://UI/UI.gd"
 
 [display]
 
