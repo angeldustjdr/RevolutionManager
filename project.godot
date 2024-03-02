@@ -19,7 +19,12 @@ config/icon="res://icon.svg"
 
 INSEE="*res://Data/insee.gd"
 UI="*res://UI/UI.gd"
+MORAL="*res://Data/moral.gd"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom_font="res://LinLibertine_aDRS.ttf"

@@ -11,11 +11,14 @@ func _input(event):
 
 func _on_showUI(profile) : 
 	%Name.text = profile["Name"] + " ("+profile["Gender"][0]+")"
+	%Satisfaction.text = str(profile["Satisfaction"])
+	%Spark.text =str(profile["Spark"])
 	%Age.text = str(profile["Age"])+" years old"
 	%Children.text = profile["Number of children"]
 	%Occupation.text = profile["Occupation"]
 	%Income.text = "Monthly income: "+str(profile["Monthly income (€)"])+"€"
-	%City.text = "Lives in a "+profile["Lives in"]
+	%City.text = "Lives in "+profile["Lives in"]
+	%Country.text = "Born in "+profile["Born in"]
 	self.visible = true
 	
 

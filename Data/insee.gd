@@ -194,8 +194,10 @@ var structureFamille : Dictionary = { #source https://www.insee.fr/fr/statistiqu
 }
 
 var ecartSalarialHommeFemme = 0.24 #source : https://www.insee.fr/fr/statistiques/:~:text=En%20moyenne,%20le%20volume%20de,%C3%A9l%C3%A8ve%20%C3%A0%2015,5%20%.#tableau-figure1_radio1
+
 var pourcentageImmigre = 10.3 #source : https://www.insee.fr/fr/statistiques/3633212
-var pourcentageLGBT = 9.0 #source https://www.ipsos.com/sites/default/files/ct/news/documents/2023-06/Ipsos%20Enqu%C3%AAte%20LGBT%2B%20Pride%202023%20Globale.pdf
+var country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+
 #################################################### 
 # FUNCTIONS
 #################################################### 
@@ -208,10 +210,8 @@ func createCitizen():
 	var _revenue = getRevenue(_occupation,_gender)
 	var _habitation = getHabitation(_occupation)
 	var _nbChildren = getNbChildren()
-	var _isImmigrant = getImmigration()
-	if _isImmigrant : _revenue * 0.9
-	var _isLGBT = getLGBT()
-	if _isLGBT : _revenue * 0.9
+	var _country = getCountry()
+	if _country != "France" : _revenue *= 0.9
 	
 	var profile : Dictionary = {
 		"Gender" : _gender,
@@ -221,8 +221,7 @@ func createCitizen():
 		"Monthly income (€)" : int(_revenue/12),
 		"Lives in" : _habitation,
 		"Number of children" : _nbChildren,
-		"Is born in France" : !_isImmigrant,
-		"Is LGBT" : _isLGBT
+		"Born in" : _country
 	}
 	return profile
 	
@@ -289,12 +288,7 @@ func getHabitation(myOccupation):
 func getNbChildren():
 	return structureFamille["Situation"][rollDiceCumulProba(structureFamille["ProbaCumul situation"],0,-1)-1]
 
-func getImmigration():
+func getCountry():
 	var dice = randf_range(0.0,100.0)
-	if dice < pourcentageImmigre : return true
-	else : return false
-
-func getLGBT():
-	var dice = randf_range(0.0,100.0)
-	if dice < pourcentageLGBT : return true
-	else : return false
+	if dice > pourcentageImmigre : return "France"
+	else : return country_list.pick_random()

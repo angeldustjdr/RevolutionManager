@@ -1,19 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgwfsgdrsy5nw"]
+[gd_scene load_steps=7 format=3 uid="uid://dgwfsgdrsy5nw"]
 
 [ext_resource type="Script" path="res://Citizen/citizenManager.gd" id="1_020mp"]
 [ext_resource type="Script" path="res://UI/Camera2D.gd" id="1_31kx5"]
+[ext_resource type="Theme" uid="uid://dl4xf2iqg2bfn" path="res://theme.tres" id="3_ff5of"]
 [ext_resource type="Script" path="res://UI/Profileviewer.gd" id="3_xiktv"]
+[ext_resource type="Texture2D" uid="uid://ct4jsy8tnsj3i" path="res://UI/nested-hearts.svg" id="5_r3iiy"]
+[ext_resource type="Texture2D" uid="uid://ckj7a0bmrx85f" path="res://UI/flame.svg" id="6_4koae"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_31kx5")
-
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Mouse wheel = zoom in / out
-Mouse button = drag camera"
 
 [node name="CitizenManager" type="Node2D" parent="."]
 script = ExtResource("1_020mp")
@@ -28,6 +25,7 @@ offset_top = -89.0
 offset_right = 60.0
 offset_bottom = 89.0
 grow_vertical = 2
+theme = ExtResource("3_ff5of")
 script = ExtResource("3_xiktv")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Profileviewer"]
@@ -46,6 +44,38 @@ layout_mode = 2
 [node name="Name" type="Label" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="SatisfactionIcon" type="TextureRect" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Satisfaction (Am I satisfied with my current situation?)"
+texture = ExtResource("5_r3iiy")
+expand_mode = 2
+
+[node name="Satisfaction" type="Label" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Satisfaction (Am I satisfied with my current situation?)"
+mouse_filter = 0
+
+[node name="SparkIcon" type="TextureRect" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Spark (Am I willing to act to change my situation?)"
+texture = ExtResource("6_4koae")
+expand_mode = 2
+
+[node name="Spark" type="Label" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Spark (Am I willing to act to change my situation?)"
+mouse_filter = 0
 
 [node name="Age" type="Label" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -67,8 +97,19 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="Country" type="Label" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="CloseButton" type="Button" parent="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Close"
+
+[node name="Control" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 15
+text = "Scroll = Zoom in/out
+Mouse wheel = pan"
 
 [connection signal="button_down" from="CanvasLayer/Profileviewer/MarginContainer/CenterContainer/VBoxContainer/CloseButton" to="CanvasLayer/Profileviewer" method="_on_close_button_button_down"]
