@@ -15,11 +15,11 @@ func _input(event):
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			if self.zoom < zoomMax : self.zoom += zoomSpeed 
 		
-		if event.is_pressed() and event.button_index == MOUSE_BUTTON_MIDDLE :
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT :
 			cameraStartPosition = self.position
 			mouseStartPostion = get_local_mouse_position()
 			drag = true
-		if event.is_released() and event.button_index == MOUSE_BUTTON_MIDDLE : 
+		if event.is_released() and event.button_index == MOUSE_BUTTON_LEFT : 
 			drag = false
 
 func _process(_delta):

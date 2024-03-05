@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 INSEE="*res://Data/insee.gd"
 UI="*res://UI/UI.gd"
 MORAL="*res://Data/moral.gd"
+SIGNAL="*res://signal.gd"
 
 [display]
 
@@ -28,3 +29,4 @@ window/stretch/mode="viewport"
 [gui]
 
 theme/custom_font="res://LinLibertine_aDRS.ttf"
+timers/tooltip_delay_sec=0.1
