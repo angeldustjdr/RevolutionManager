@@ -78,5 +78,14 @@ func calculateInitialMoralScores(myProfile):
 		}
 		myMoralScore[k] = clamp(myMoralScore[k] + coef * HabitationCorrelation[k].sample(HabitationLevel[myProfile["Lives in"]]),0.0,100.0)
 	
+	# Renormalization
+	var sum1 = myMoralScore["Follow Traditions"]+myMoralScore["Open to Changes"]
+	myMoralScore["Follow Traditions"] = 100*myMoralScore["Follow Traditions"]/sum1
+	myMoralScore["Open to Changes"] = 100*myMoralScore["Open to Changes"]/sum1
+	
+	var sum2 = myMoralScore["Care for others"]+myMoralScore["Self Fullfillment"]
+	myMoralScore["Care for others"] = 100*myMoralScore["Care for others"]/sum2
+	myMoralScore["Self Fullfillment"] = 100*myMoralScore["Self Fullfillment"]/sum2
+	
 	return myMoralScore
 

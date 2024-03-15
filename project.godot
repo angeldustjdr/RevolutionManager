@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Revolution Manager"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -30,3 +30,7 @@ window/stretch/mode="viewport"
 
 theme/custom_font="res://LinLibertine_aDRS.ttf"
 timers/tooltip_delay_sec=0.1
+
+[physics]
+
+common/physics_ticks_per_second=100

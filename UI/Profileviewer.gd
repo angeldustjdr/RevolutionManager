@@ -1,16 +1,15 @@
 extends PanelContainer
 
 func _ready():
-	self.visible = false
-	UI.connect("showUI",_on_showUI)
+	UI.connect("clearSelected", _on_clearSelected)
 
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-			self.visible = false
 			UI.emit_signal("clearSelected")
+			queue_free()
 
-func _on_showUI(profile) : 
+func initializeProfileViewer(profile) : 
 	%Name.text = profile["Name"] + " ("+profile["Gender"][0]+")"
 	%Satisfaction.text = str(profile["Satisfaction"])
 	%Spark.text =str(profile["Spark"])
@@ -25,10 +24,9 @@ func _on_showUI(profile) :
 	%ChangeBar.value = profile["Open to Changes"]
 	%CareBar.value = profile["Care for others"]
 	%FullfilmentBar.value = profile["Self Fullfillment"]
-	self.visible = true
-	
-
 
 func _on_close_button_button_down():
-	self.visible = false
 	UI.emit_signal("clearSelected")
+
+func _on_clearSelected():
+	queue_free()

@@ -1,4 +1,4 @@
 extends Node
 
-signal showUI(profile)
+signal showProfileUI(profile)
 signal clearSelected()

@@ -1,3 +1,3 @@
 extends Node
 
-signal ViewReady(spawningTuples,type)
+signal XYaxis(x,y)

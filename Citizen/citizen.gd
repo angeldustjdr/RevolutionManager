@@ -25,7 +25,7 @@ func _on_hover_area_mouse_exited():
 func _on_hover_area_input_event(_viewport, event, _shape_idx):
 	if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT :
 		UI.emit_signal("clearSelected")
-		UI.emit_signal("showUI",profile)
+		UI.emit_signal("showProfileUI",profile)
 		selected = true
 		switchColor(true)
 		

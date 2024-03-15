@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ciphdf1vd7sax"]
 
-[ext_resource type="Script" path="res://Citizen/citizen.gd" id="1_xhysw"]
+[ext_resource type="Script" path="res://Citizen/Citizen.gd" id="1_lve5p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_08wnf"]
 
@@ -8,7 +8,7 @@
 
 [node name="Citizen" type="RigidBody2D"]
 gravity_scale = 0.0
-script = ExtResource("1_xhysw")
+script = ExtResource("1_lve5p")
 
 [node name="NameLabel" type="Label" parent="."]
 visible = false
