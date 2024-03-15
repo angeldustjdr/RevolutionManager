@@ -2,7 +2,7 @@ extends PanelContainer
 
 @onready var Xaxis = $MarginContainer/VBoxContainer/HBoxContainer/Xaxis/OptionButton
 @onready var Yaxis = $MarginContainer/VBoxContainer/HBoxContainer/Yaxis/OptionButton
-@onready var listOptions = ["Follow Traditions","Open to Changes","Care for others","Self Fullfillment"]
+@onready var listOptions = ["Follow Traditions","Open to Changes","Care for others","Self Fullfillment","Age","Monthly income (€)"]
 
 func _ready():
 	for axis in [Xaxis,Yaxis]:
@@ -10,4 +10,4 @@ func _ready():
 			axis.add_item(opt)
 
 func _on_plot_pressed():
-	SIGNAL.emit_signal("XYaxis",listOptions[Xaxis.selected],listOptions[Yaxis.selected])
+	UI.emit_signal("XYaxis",listOptions[Xaxis.selected],listOptions[Yaxis.selected])

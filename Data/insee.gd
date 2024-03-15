@@ -216,9 +216,9 @@ func createCitizen():
 	var profile : Dictionary = {
 		"Gender" : _gender,
 		"Name" : _name,
-		"Age" : _age,
+		"Age" : float(_age),
 		"Occupation" : _occupation,
-		"Monthly income (€)" : int(_revenue/12),
+		"Monthly income (€)" : float(int(_revenue/12)),
 		"Lives in" : _habitation,
 		"Number of children" : _nbChildren,
 		"Born in" : _country

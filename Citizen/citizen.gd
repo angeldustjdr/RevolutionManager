@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var profile : Dictionary = {}
 var selected = false
@@ -15,21 +15,6 @@ func initialize():
 	var moralScore = MORAL.calculateInitialMoralScores(profile)
 	profile.merge(moralScore)
 
-
-func _on_hover_area_mouse_entered():
-	switchColor(true)
-
-func _on_hover_area_mouse_exited():
-	switchColor(false)
-
-func _on_hover_area_input_event(_viewport, event, _shape_idx):
-	if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT :
-		UI.emit_signal("clearSelected")
-		UI.emit_signal("showProfileUI",profile)
-		selected = true
-		switchColor(true)
-		
-
 func switchColor(ON_OFF):
 	if ON_OFF: 
 		$NameLabel.visible = true
@@ -44,3 +29,17 @@ func switchColor(ON_OFF):
 func clearSelected():
 	selected = false
 	switchColor(false)
+
+
+func _on_sprite_2d_mouse_entered():
+	switchColor(true)
+
+func _on_sprite_2d_mouse_exited():
+	switchColor(false)
+
+func _on_sprite_2d_gui_input(event):
+	if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT :
+		UI.emit_signal("clearSelected")
+		UI.emit_signal("showProfileUI",profile)
+		selected = true
+		switchColor(true)
