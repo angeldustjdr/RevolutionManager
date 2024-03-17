@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 var profile : Dictionary = {}
 var selected = false
@@ -30,14 +30,22 @@ func clearSelected():
 	selected = false
 	switchColor(false)
 
+func move(where):
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self,"position",where,0.5)
+	
 
-func _on_sprite_2d_mouse_entered():
+
+func _on_area_2d_mouse_entered():
 	switchColor(true)
 
-func _on_sprite_2d_mouse_exited():
+
+func _on_area_2d_mouse_exited():
 	switchColor(false)
 
-func _on_sprite_2d_gui_input(event):
+
+func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT :
 		UI.emit_signal("clearSelected")
 		UI.emit_signal("showProfileUI",profile)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgwfsgdrsy5nw"]
 
-[ext_resource type="Script" path="res://Citizen/CitizenManager.gd" id="1_qxs42"]
+[ext_resource type="PackedScene" uid="uid://dxln76ko4smo4" path="res://Citizen/CitizenManager.tscn" id="2_5c3ky"]
 [ext_resource type="Script" path="res://UI/CanvasLayer.gd" id="2_a4l4x"]
 [ext_resource type="PackedScene" uid="uid://c8l0mtgtk56bs" path="res://UI/Plotmenu.tscn" id="3_dgsg3"]
 
@@ -15,16 +15,12 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
 
-[node name="CitizenManager" type="Node2D" parent="."]
-script = ExtResource("1_qxs42")
-
-[node name="ViewManager" type="Node2D" parent="."]
+[node name="CitizenManager" parent="." instance=ExtResource("2_5c3ky")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("2_a4l4x")
-
-[node name="PlotMenu" parent="CanvasLayer" instance=ExtResource("3_dgsg3")]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 offset_right = 236.0
@@ -41,8 +37,6 @@ text = "Left click = inspect
 Right click = close menu
 Play with Plot Menu and Action Menu"
 
-[node name="Title" type="Label" parent="CanvasLayer"]
-offset_right = 1149.0
-offset_bottom = 70.0
-theme_override_font_sizes/font_size = 25
-horizontal_alignment = 1
+[node name="PlotMenu" parent="CanvasLayer" instance=ExtResource("3_dgsg3")]
+offset_left = -122.0
+offset_bottom = 94.0

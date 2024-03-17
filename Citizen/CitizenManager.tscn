@@ -2,49 +2,34 @@
 
 [ext_resource type="Script" path="res://Citizen/CitizenManager.gd" id="1_t4i4p"]
 
-[node name="CitizenManager" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CitizenManager" type="Node2D"]
 script = ExtResource("1_t4i4p")
 
 [node name="Title" type="Label" parent="."]
-layout_mode = 0
 offset_right = 1149.0
 offset_bottom = 70.0
 theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 
-[node name="PlotZone" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = 111.0
-offset_right = -38.0
-offset_bottom = -43.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PlotZone" type="Node2D" parent="."]
+position = Vector2(48, 111)
 
 [node name="Xaxis" type="ColorRect" parent="."]
-layout_mode = 0
 offset_left = 48.0
 offset_top = 605.0
 offset_right = 1114.0
 offset_bottom = 610.0
+mouse_filter = 2
 
 [node name="Yaxis" type="ColorRect" parent="."]
-layout_mode = 0
 offset_left = 43.0
 offset_top = 111.0
 offset_right = 48.0
 offset_bottom = 610.0
+mouse_filter = 2
 
 [node name="Xlabels" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_left = 43.0
 offset_top = 610.0
@@ -60,6 +45,7 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="Ylabels" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_top = 111.0
 offset_right = 43.0

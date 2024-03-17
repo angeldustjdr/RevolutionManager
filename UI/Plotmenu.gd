@@ -2,7 +2,10 @@ extends PanelContainer
 
 @onready var Xaxis = $MarginContainer/VBoxContainer/HBoxContainer/Xaxis/OptionButton
 @onready var Yaxis = $MarginContainer/VBoxContainer/HBoxContainer/Yaxis/OptionButton
-@onready var listOptions = ["Follow Traditions","Open to Changes","Care for others","Self Fullfillment","Age","Monthly income (€)"]
+@onready var listOptions = [
+	"Follow Traditions","Open to Changes","Care for others","Self Fullfillment","Age",
+	"Gender","Monthly income (€)","Occupation","Lives in","Number of children"
+	]
 
 func _ready():
 	for axis in [Xaxis,Yaxis]:
